@@ -4,7 +4,7 @@ import {
     PlusOutlined,
     // BorderOutlined
   } from '@ant-design/icons';
-import './index.css'
+import './index.less'
 
 export interface Props {
     
