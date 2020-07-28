@@ -6,34 +6,59 @@ import {
 import './index.less'
 
 export interface Props {
+    id: number;
     checked: boolean;
     taskInfo: string;
+    onDragItem: Function;
+    onDragOver: Function;
 }
  
 export interface State {
-    
+    dropItemId: number;
+    dragItemId: number;
 }
  
 class TaskItem extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        this.state = { };
+        this.state = { 
+            dragItemId: 0,
+            dropItemId: 0,
+        };
     }
 
     componentDidMount() {
     }
 
-    dragItem = (e: any) => {
-        console.log(e.target)
+    dragItem = (e: any, id: number) => {
+        // let { dragItemId } = this.state
+        // dragItemId = id
+        this.props.onDragItem(id)
+        // console.log(e.target, id, 'dragStart')
+    }
+
+    dragOver = (e: any, id: number) => {
+        let {dropItemId} = this.state
+        dropItemId = id
+        this.props.onDragOver(id)
+        // console.log(e.target, id, 'dragOver')
+    }
+
+    dropItem = (e: any, id: number) => {
+        // console.log(e.target, id, 'dropItem')
     }
 
     render() { 
-        const {checked, taskInfo} = this.props
+        const {checked, taskInfo, id} = this.props
         return ( 
             <div 
-                className="taskItem_container" 
+                data-id={id}
+                className="taskItem_container"
                 draggable="true"
-                onDrag={(e) => this.dragItem(e)} >
+                onDragStart={(e) => this.dragItem(e, id)}
+                onDragOver={(e) => this.dragOver(e, id)}
+                onDrop={(e) => this.dropItem(e, id)}
+                >
                 <MenuOutlined />
                 <Checkbox 
                     className="taskItem_container_checkBox" 

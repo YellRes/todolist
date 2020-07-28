@@ -2,6 +2,7 @@ import React from 'react';
 import TaskItem from './taskitem/index'
 
 interface taskItem {
+    id: number;
     checked: boolean;
     taskInfo: string;    
 }
@@ -20,14 +21,17 @@ class TaskList extends React.Component<Props, State> {
         this.state = {  
             taskArr: [
                 {
+                    id: 1,
                     checked: false,
                     taskInfo: 'test it'
                 },
                 {
+                    id: 2,
                     checked: true,
                     taskInfo: 'zzy'
                 },
                 {
+                    id: 3,
                     checked: false,
                     taskInfo: '早上锻炼'
                 },
@@ -35,19 +39,31 @@ class TaskList extends React.Component<Props, State> {
          };
     }
 
-    hoverTask = (ev: any) => {
-        console.log(ev.clientX, ev.clientY)
+    onDragItem = (e: any) => {
+        console.log(e, '拿到了起始id')
     }
+
+    onDragOver = (e: any) => {
+        console.log(e, '拿到了拖拽时候的id')
+    }
+
+
     render() { 
         const { taskArr } = this.state
         return (
             <>
-                <div onDragOver={(ev) => this.hoverTask(ev)}>
+                <div>
                 {
                     taskArr.length > 0 
                     ?  (
                         taskArr.map(task => 
-                            (<TaskItem {...task}></TaskItem>))
+                            (<TaskItem 
+                                {...task}
+                                onDragItem={this.onDragItem}
+                                onDragOver={this.onDragOver}
+                                >
+                            </TaskItem>)
+                            )
                     )
                     : null
                 }
