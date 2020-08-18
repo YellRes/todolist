@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.css';
 
-import AddTask from './component/addtask/index'
 import TaskList from './component/tasklist/index'
+import Count from './component/count/index'
 
 
 function App() {
   return (
     <div className="App">
-      <AddTask/>
       <TaskList></TaskList>
+      {/* <Count></Count> */}
        {/* <Button type="primary">Button</Button> */}
     </div>
   );

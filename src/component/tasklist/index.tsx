@@ -1,5 +1,15 @@
+import { Modal} from 'antd';
+
 import React from 'react';
 import TaskItem from './taskitem/index'
+import AddTask from '../addtask/index'
+import {
+    ExclamationCircleOutlined
+  } from '@ant-design/icons';
+
+const { confirm } = Modal;
+let currentId: number
+let dragOverId: number
 
 interface taskItem {
     id: number;
@@ -8,11 +18,11 @@ interface taskItem {
 }
 
 export interface Props {
-    
+
 }
  
 export interface State {
-    taskArr: Array<taskItem>
+    taskArr: Array<any>
 }
  
 class TaskList extends React.Component<Props, State> {
@@ -23,28 +33,80 @@ class TaskList extends React.Component<Props, State> {
                 {
                     id: 1,
                     checked: false,
-                    taskInfo: 'test it'
+                    taskInfo: 'test it',
                 },
                 {
                     id: 2,
                     checked: true,
-                    taskInfo: 'zzy'
+                    taskInfo: 'zzy',
+
                 },
                 {
                     id: 3,
                     checked: false,
-                    taskInfo: '早上锻炼'
+                    taskInfo: '早上锻炼',
                 },
             ]
          };
     }
 
     onDragItem = (e: any) => {
-        console.log(e, '拿到了起始id')
+        currentId = e
     }
 
     onDragOver = (e: any) => {
         console.log(e, '拿到了拖拽时候的id')
+        let {taskArr} = this.state
+        let delIndex:number = 0 
+        let addIndex:number = 0
+        taskArr.forEach((item, index) => {
+            if (item.id === currentId) {
+                delIndex = index
+            }
+
+            if (item.id === e) {
+                addIndex = index
+            }
+        })
+        let result = taskArr[Number(delIndex)]
+
+        taskArr.splice(delIndex, 1)
+        taskArr.splice(addIndex, 0, result)
+
+
+        this.setState({taskArr})
+    }
+
+    onAddItem = (e: any) => {
+        const {taskArr} = this.state
+        const taskItem = {
+            id: taskArr.length + 1,
+            taskInfo: e,
+            checked: false
+        }
+
+        taskArr.push(taskItem)
+
+        this.setState({taskArr})
+    }
+
+    onDelItem = (e: any) => {
+        const that = this
+
+        confirm({
+            title: '确定删除?',
+            icon: <ExclamationCircleOutlined />,
+            okText: '确认',
+            cancelText: '取消',
+            onOk() {
+                const {taskArr} = that.state
+                const result = taskArr.filter(item => item.id !== e)
+                that.setState({taskArr: result})
+            },
+            onCancel() {
+            },
+          });
+        
     }
 
 
@@ -52,15 +114,20 @@ class TaskList extends React.Component<Props, State> {
         const { taskArr } = this.state
         return (
             <>
+                  <AddTask onAddItem={this.onAddItem}/>
+
                 <div>
                 {
                     taskArr.length > 0 
                     ?  (
-                        taskArr.map(task => 
+                        taskArr.map((task, index) => 
                             (<TaskItem 
-                                {...task}
+                                id={task.id}
+                                checked={task.checked}
+                                taskInfo={task.taskInfo}
                                 onDragItem={this.onDragItem}
                                 onDragOver={this.onDragOver}
+                                onDelItem={this.onDelItem}
                                 >
                             </TaskItem>)
                             )

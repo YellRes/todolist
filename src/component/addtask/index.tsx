@@ -7,7 +7,7 @@ import {
 import './index.less'
 
 export interface Props {
-    
+    onAddItem: Function
 }
  
 export interface State {
@@ -30,7 +30,11 @@ class AddTask extends React.Component<Props, State> {
     }
 
     addTask = (e: any) => {
-        
+        const {inputValue} = this.state;
+        this.props.onAddItem(inputValue)
+        this.setState({
+            inputValue: ''
+        })
     }
 
     render() { 

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Checkbox } from 'antd';
 import {
-    MenuOutlined
+    MenuOutlined,
+    DeleteOutlined
   } from '@ant-design/icons';
 import './index.less'
 
@@ -11,10 +12,11 @@ export interface Props {
     taskInfo: string;
     onDragItem: Function;
     onDragOver: Function;
+    onDelItem: Function;
 }
  
 export interface State {
-    dropItemId: number;
+    dropItemId: string;
     dragItemId: number;
 }
  
@@ -23,7 +25,7 @@ class TaskItem extends React.Component<Props, State> {
         super(props);
         this.state = { 
             dragItemId: 0,
-            dropItemId: 0,
+            dropItemId: '',
         };
     }
 
@@ -34,18 +36,19 @@ class TaskItem extends React.Component<Props, State> {
         // let { dragItemId } = this.state
         // dragItemId = id
         this.props.onDragItem(id)
-        // console.log(e.target, id, 'dragStart')
     }
 
     dragOver = (e: any, id: number) => {
         let {dropItemId} = this.state
-        dropItemId = id
+        // dropItemId = id
         this.props.onDragOver(id)
-        // console.log(e.target, id, 'dragOver')
     }
 
     dropItem = (e: any, id: number) => {
-        // console.log(e.target, id, 'dropItem')
+    }
+
+    delItem = (e: any, id: number) => {
+        this.props.onDelItem(id)
     }
 
     render() { 
@@ -57,7 +60,6 @@ class TaskItem extends React.Component<Props, State> {
                 draggable="true"
                 onDragStart={(e) => this.dragItem(e, id)}
                 onDragOver={(e) => this.dragOver(e, id)}
-                onDrop={(e) => this.dropItem(e, id)}
                 >
                 <MenuOutlined />
                 <Checkbox 
@@ -67,6 +69,10 @@ class TaskItem extends React.Component<Props, State> {
                 <div 
                     className="taskItem_container_text">
                     {taskInfo}
+                </div>
+
+                <div className="del_icon" onClick={(e) => this.delItem(e, id)}>
+                    <DeleteOutlined />
                 </div>
             </div>
          );
