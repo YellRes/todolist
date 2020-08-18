@@ -41,13 +41,13 @@ class AddTask extends React.Component<Props, State> {
         const { inputValue } = this.state
         return (    
             <div className="add_container">
-                <Input 
+                <Input
                     prefix={<PlusOutlined />}
                     placeholder="add todo" 
                     value={inputValue}
                     onChange={(e) => this.inputChange(e)}
                     onPressEnter={this.addTask}/>
-                <Button 
+                <Button
                     type="primary" 
                     className="add_container_btn"
                     onClick={(e) => this.addTask(e)}

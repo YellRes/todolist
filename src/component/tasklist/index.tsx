@@ -44,7 +44,7 @@ class TaskList extends React.Component<Props, State> {
                 {
                     id: 3,
                     checked: false,
-                    taskInfo: '早上锻炼',
+                    taskInfo: 'ztr',
                 },
             ]
          };
@@ -110,6 +110,19 @@ class TaskList extends React.Component<Props, State> {
     }
 
 
+    // 点击按钮
+    onCheckedChange = (e: any) => {
+        const {taskArr} = this.state
+        taskArr.forEach(item => {
+            if (item.id === e) {
+                item.checked = !item.checked
+            }
+        })
+
+        this.setState({taskArr})
+    }
+
+
     render() { 
         const { taskArr } = this.state
         return (
@@ -128,6 +141,7 @@ class TaskList extends React.Component<Props, State> {
                                 onDragItem={this.onDragItem}
                                 onDragOver={this.onDragOver}
                                 onDelItem={this.onDelItem}
+                                onCheckedChange={this.onCheckedChange}
                                 >
                             </TaskItem>)
                             )

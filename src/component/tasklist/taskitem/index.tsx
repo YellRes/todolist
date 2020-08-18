@@ -13,6 +13,7 @@ export interface Props {
     onDragItem: Function;
     onDragOver: Function;
     onDelItem: Function;
+    onCheckedChange: Function;
 }
  
 export interface State {
@@ -51,6 +52,10 @@ class TaskItem extends React.Component<Props, State> {
         this.props.onDelItem(id)
     }
 
+    checkedChange = (e: any, id: number) => {
+        this.props.onCheckedChange(id)
+    }
+
     render() { 
         const {checked, taskInfo, id} = this.props
         return ( 
@@ -63,13 +68,16 @@ class TaskItem extends React.Component<Props, State> {
                 >
                 <MenuOutlined />
                 <Checkbox 
-                    className="taskItem_container_checkBox" 
+                    className={`taskItem_container_checkBox ${checked ? 'text_dec' : null}`}
+                    
+                    onChange={(e) => this.checkedChange(e, id)}
                     checked={checked}>
+                        {taskInfo}
                 </Checkbox>
-                <div 
+                {/* <div 
                     className="taskItem_container_text">
-                    {taskInfo}
-                </div>
+                    
+                </div> */}
 
                 <div className="del_icon" onClick={(e) => this.delItem(e, id)}>
                     <DeleteOutlined />
