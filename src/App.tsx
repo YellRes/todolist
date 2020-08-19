@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 
-import TaskList from './component/tasklist/index'
-import Count from './component/count/index'
+import TaskList from './component/tasklist'
+// import Count from './component/count/index'
 
 
 function App() {

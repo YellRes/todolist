@@ -14,6 +14,8 @@ export interface Props {
     onDragOver: Function;
     onDelItem: Function;
     onCheckedChange: Function;
+    onDragEnd: Function;
+    onDropEnd: Function;
 }
  
 export interface State {
@@ -40,7 +42,7 @@ class TaskItem extends React.Component<Props, State> {
     }
 
     dragOver = (e: any, id: number) => {
-        let {dropItemId} = this.state
+        // let {dropItemId} = this.state
         // dropItemId = id
         this.props.onDragOver(id)
     }
@@ -56,6 +58,15 @@ class TaskItem extends React.Component<Props, State> {
         this.props.onCheckedChange(id)
     }
 
+    dragEnd = (e: any, id: number) => {
+        this.props.onDragEnd(id)
+    }
+
+    drop = (e: any, id: number) => {
+        this.props.onDropEnd(id)
+        debugger
+    }
+
     render() { 
         const {checked, taskInfo, id} = this.props
         return ( 
@@ -65,6 +76,8 @@ class TaskItem extends React.Component<Props, State> {
                 draggable="true"
                 onDragStart={(e) => this.dragItem(e, id)}
                 onDragOver={(e) => this.dragOver(e, id)}
+                onDragEnd={(e) => this.dragEnd(e, id)}
+                onDrop={(e) => this.drop(e, id)}
                 >
                 <MenuOutlined />
                 <Checkbox 

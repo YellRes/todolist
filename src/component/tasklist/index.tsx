@@ -3,13 +3,15 @@ import { Modal} from 'antd';
 import React from 'react';
 import TaskItem from './taskitem/index'
 import AddTask from '../addtask/index'
+import DelZone from '../delzone/index'
+
 import {
     ExclamationCircleOutlined
-  } from '@ant-design/icons';
+} from '@ant-design/icons';
 
 const { confirm } = Modal;
 let currentId: number
-let dragOverId: number
+// let dragOverId: number
 
 interface taskItem {
     id: number;
@@ -22,7 +24,8 @@ export interface Props {
 }
  
 export interface State {
-    taskArr: Array<any>
+    taskArr: Array<any>,
+    isShowDelZone: boolean
 }
  
 class TaskList extends React.Component<Props, State> {
@@ -46,12 +49,18 @@ class TaskList extends React.Component<Props, State> {
                     checked: false,
                     taskInfo: 'ztr',
                 },
-            ]
+            ],
+            isShowDelZone: false,
          };
     }
 
     onDragItem = (e: any) => {
         currentId = e
+        this.setState({
+            isShowDelZone: true,
+        })
+        localStorage.clear()
+        localStorage.setItem('taskId', e)
     }
 
     onDragOver = (e: any) => {
@@ -109,6 +118,12 @@ class TaskList extends React.Component<Props, State> {
         
     }
 
+    onDragEnd = () => {
+        this.setState({
+            isShowDelZone: false,
+        })
+    }
+
 
     // 点击按钮
     onCheckedChange = (e: any) => {
@@ -122,12 +137,30 @@ class TaskList extends React.Component<Props, State> {
         this.setState({taskArr})
     }
 
+    onDragDelY = (e: any) => {
+        // console.log(e, 'drag this in this waydrag this in this waydrag this in this way')
+        const taskId = localStorage.getItem('taskId')
+        const {taskArr} = this.state
+        let result = taskArr.filter(item => item.id !== Number(taskId))
+
+        this.setState({
+            taskArr: result,
+            isShowDelZone: false,
+
+        })
+    }
+
+    onDropEnd = (e: any) => {
+        // console.log(e, 'drag this in this waydrag this in this waydrag this in this way')
+        
+    }
+
 
     render() { 
-        const { taskArr } = this.state
+        const { taskArr, isShowDelZone } = this.state
         return (
-            <>
-                  <AddTask onAddItem={this.onAddItem}/>
+            <div className='todo_list'>
+                <AddTask onAddItem={this.onAddItem}/>
 
                 <div>
                 {
@@ -141,17 +174,35 @@ class TaskList extends React.Component<Props, State> {
                                 onDragItem={this.onDragItem}
                                 onDragOver={this.onDragOver}
                                 onDelItem={this.onDelItem}
-                                onCheckedChange={this.onCheckedChange}
-                                >
+                                onDragEnd={this.onDragEnd}
+                                onDropEnd={this.onDropEnd}
+                                onCheckedChange={this.onCheckedChange}>
                             </TaskItem>)
                             )
                     )
                     : null
                 }
                 </div>
-            </>
+
+                <DelZone 
+                    onDragDel={this.onDragDelY}
+                    isShow={isShowDelZone}></DelZone>
+               
+            </div>
         )
     }
 }
+
+// const mapStateToProps = (state: any) => {
+//     return {
+//         taskId: state.taskId
+//     }
+// }
+
+// const mapDispatchToProps = (dispatch: Dispatch) => ({
+//     deleteTodo: (taskId: string) => dispatch(addTodo(taskId))
+// })
  
-export default TaskList;
+
+// export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
+export default TaskList
