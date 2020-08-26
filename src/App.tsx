@@ -3,6 +3,7 @@ import './App.css';
 
 
 import TaskList from './component/tasklist'
+// import { BrowserRouter, Route } from 'react-router-dom';
 import Login from './component/login'
 import { Spin } from 'antd';
 
@@ -13,7 +14,9 @@ function App() {
   return (
     <div className="App">
       {/* <TaskList></TaskList> */}
-      <Login />
+      <Login></Login>
+      {/* <Route path='/login' exact component={Login}></Route> */}
+      {/* <Route path='/taskList' exact component={TaskList}></Route> */}
     </div>
   );
 }
