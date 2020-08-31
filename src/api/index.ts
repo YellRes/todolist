@@ -1,7 +1,6 @@
 import axios, {AxiosRequestConfig, AxiosError, AxiosResponse} from 'axios'
 import {message} from 'antd'
 
-
 axios.defaults.timeout = 10000
 axios.defaults.baseURL = 'http://localhost:3001'
 
@@ -12,8 +11,10 @@ export default function AxiosConfig () {
     axios.interceptors.request.use((config: any) => {
         if (config.data && config.data.showLoading) {
             startFlag = true
-
         }
+
+        const token = localStorage.getItem('token')
+        config.headers.common['Authorization'] = token
 
         if (config.params) config.params._t = Date.now()
 

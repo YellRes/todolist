@@ -3,20 +3,26 @@ import './App.css';
 
 
 import TaskList from './component/tasklist'
-// import { BrowserRouter, Route } from 'react-router-dom';
+import { HashRouter, Switch} from 'react-router-dom';
 import Login from './component/login'
 import { Spin } from 'antd';
+import AuthRouter from './router/authRoute'
 
 // import Count from './component/count/index'
 
 
 function App() {
+  const isLogin: any = localStorage.getItem('token')
+
   return (
     <div className="App">
       {/* <TaskList></TaskList> */}
-      <Login></Login>
-      {/* <Route path='/login' exact component={Login}></Route> */}
-      {/* <Route path='/taskList' exact component={TaskList}></Route> */}
+      {/* <Login></Login> */}
+      <HashRouter>
+        <Switch>
+         <AuthRouter/>
+        </Switch>
+      </HashRouter>
     </div>
   );
 }

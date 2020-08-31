@@ -5,7 +5,7 @@ import api from '../../api/config'
 
 
 interface Props {
-
+  history: any,
 }
 
 interface State {
@@ -16,7 +16,7 @@ interface State {
 }
 
 class Login extends Component<Props, State>{
-  
+
   constructor(props: any) {
     super(props)
 
@@ -35,6 +35,10 @@ class Login extends Component<Props, State>{
       .then((res :any) => {
         if (res.header && res.header.code === '1000') {
           message.success(res.header.message);
+          this.props.history.push({
+            pathname: '/tasklist'
+          })
+          localStorage.setItem('token', res.body.token)
         } else{
           message.error(res.header.message);
         }

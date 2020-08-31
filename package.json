@@ -158,5 +158,8 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "devDependencies": {
+    "@types/react-router-dom": "^5.1.5"
   }
 }
