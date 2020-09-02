@@ -6,5 +6,10 @@ export default {
             userName: params.userName,
             password: params.password,
         })
+    },
+    getUserInfo: (params: any = {}) => {
+        return axios.post('/users/getUserInfo', {
+            userId: params.userId
+        })
     }
 }

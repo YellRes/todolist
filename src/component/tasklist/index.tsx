@@ -4,6 +4,7 @@ import React from 'react';
 import TaskItem from './taskitem/index'
 import AddTask from '../addtask/index'
 import DelZone from '../delzone/index'
+import api from '../../api/config'
 
 import {
     ExclamationCircleOutlined
@@ -20,12 +21,13 @@ interface taskItem {
 }
 
 export interface Props {
-
+    location: any;
 }
  
 export interface State {
     taskArr: Array<any>,
-    isShowDelZone: boolean
+    isShowDelZone: boolean,
+    userId: string
 }
  
 class TaskList extends React.Component<Props, State> {
@@ -51,7 +53,24 @@ class TaskList extends React.Component<Props, State> {
                 },
             ],
             isShowDelZone: false,
+            userId: ''
          };
+    }
+
+    componentDidMount() {
+        const {query:{userId}} = this.props.location
+        this.setState({userId})
+        this.getData(userId)
+    }
+
+    getData = (val: string) => {
+        api.getUserInfo({
+            userId: val
+        }).then((res: any) => {
+            this.setState({
+                taskArr: res.body.taskArr
+            })
+        })
     }
 
     onDragItem = (e: any) => {
@@ -155,7 +174,6 @@ class TaskList extends React.Component<Props, State> {
         
     }
 
-
     render() { 
         const { taskArr, isShowDelZone } = this.state
         return (
@@ -169,8 +187,8 @@ class TaskList extends React.Component<Props, State> {
                         taskArr.map((task, index) => 
                             (<TaskItem 
                                 id={task.id}
-                                checked={task.checked}
-                                taskInfo={task.taskInfo}
+                                taskIsDone={task.taskIsDone}
+                                taskName={task.taskName}
                                 onDragItem={this.onDragItem}
                                 onDragOver={this.onDragOver}
                                 onDelItem={this.onDelItem}

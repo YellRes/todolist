@@ -14,7 +14,7 @@ export default function AxiosConfig () {
         }
 
         const token = localStorage.getItem('token')
-        config.headers.common['Authorization'] = token
+        config.headers.common['Authorization'] = `Bearer ${token}`
 
         if (config.params) config.params._t = Date.now()
 

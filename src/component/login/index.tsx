@@ -36,7 +36,10 @@ class Login extends Component<Props, State>{
         if (res.header && res.header.code === '1000') {
           message.success(res.header.message);
           this.props.history.push({
-            pathname: '/tasklist'
+            pathname: '/taskList',
+            query: {
+              userId: res.body.userId
+            }
           })
           localStorage.setItem('token', res.body.token)
         } else{

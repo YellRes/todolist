@@ -8,8 +8,8 @@ import './index.less'
 
 export interface Props {
     id: number;
-    checked: boolean;
-    taskInfo: string;
+    taskIsDone: boolean;
+    taskName: string;
     onDragItem: Function;
     onDragOver: Function;
     onDelItem: Function;
@@ -64,11 +64,10 @@ class TaskItem extends React.Component<Props, State> {
 
     drop = (e: any, id: number) => {
         this.props.onDropEnd(id)
-        debugger
     }
 
     render() { 
-        const {checked, taskInfo, id} = this.props
+        const {taskIsDone, taskName, id} = this.props
         return ( 
             <div 
                 data-id={id}
@@ -81,16 +80,12 @@ class TaskItem extends React.Component<Props, State> {
                 >
                 <MenuOutlined />
                 <Checkbox 
-                    className={`taskItem_container_checkBox ${checked ? 'text_dec' : null}`}
+                    className={`taskItem_container_checkBox ${taskIsDone ? 'text_dec' : null}`}
                     
                     onChange={(e) => this.checkedChange(e, id)}
-                    checked={checked}>
-                        {taskInfo}
+                    checked={taskIsDone}>
+                        {taskName}
                 </Checkbox>
-                {/* <div 
-                    className="taskItem_container_text">
-                    
-                </div> */}
 
                 <div className="del_icon" onClick={(e) => this.delItem(e, id)}>
                     <DeleteOutlined />

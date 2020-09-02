@@ -9,7 +9,7 @@ const RouterConfig = [
     auth: false
   },
   {
-    path: "/TaskList",
+    path: "/taskList",
     component: TaskList,
     auth: true
   },
