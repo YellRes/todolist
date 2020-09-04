@@ -14,11 +14,11 @@ class AuthRouter extends React.Component<any, any> {
         const targetRouter = routeSetting.find(item => {
             return item.path === pathname
         })
-        debugger
+              
         return (
             isLogin ?
-        ( <Route component={targetRouter?.component} />)
-        : ( <Redirect to="/login"/>)
+        ( <Route exact path={pathname} component={targetRouter?.component} />)
+        : ( <Redirect exact to="/login" />)
         )
 
     }
