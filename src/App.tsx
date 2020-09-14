@@ -12,7 +12,6 @@ import AuthRouter from './router/authRoute'
 
 
 function App() {
-  const isLogin: any = localStorage.getItem('token')
 
   return (
     <div className="App">
