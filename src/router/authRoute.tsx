@@ -21,9 +21,9 @@ class AuthRouter extends React.Component<any, any> {
         }
 
         return (
-            isLogin ?
-        ( <Route exact path={pathname} component={targetRouter?.component} />)
-        : ( <Redirect exact to="/login" />)
+            isLogin && !targetRouter?.auth ?
+        (<Redirect exact to="/login" /> )
+        : ( <Route exact path={pathname} component={targetRouter?.component} />)
         )
         
 

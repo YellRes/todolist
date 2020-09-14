@@ -3,10 +3,11 @@ import './index.less'
 
 interface BlogProps {
   blogImgUrl: string,
+  blogTitle: string,
   releaseDate: string,
-  userId: string,
   creater: string,
-  tagType: string
+  userId?: string,
+  tagType?: string
 }
 
 interface BlogState {
@@ -19,10 +20,18 @@ class BlogItem extends Component<BlogProps, any> {
   }
 
   render() {
-    const {blogImgUrl, releaseDate, tagType} = this.props
+    const {blogImgUrl, releaseDate, tagType, blogTitle, creater} = this.props
     return (
-      <div className="blog_container">
-        
+      <div className="blogItem">
+        <img src={blogImgUrl} className={'blogItem__img'}/>
+        <div className={'blogItem__release'}>
+          {creater}
+          {releaseDate}
+        </div>
+        <div className={'blogItem__content'}>
+          <p>{blogTitle}</p>
+        </div>
+
       </div>
     )
   }
