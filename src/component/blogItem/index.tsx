@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Avatar } from 'antd';
 import './index.less'
 
 interface BlogProps {
@@ -6,6 +7,7 @@ interface BlogProps {
   blogTitle: string,
   releaseDate: string,
   creater: string,
+  createrAvater?: string,
   userId?: string,
   tagType?: string
 }
@@ -20,18 +22,22 @@ class BlogItem extends Component<BlogProps, any> {
   }
 
   render() {
-    const {blogImgUrl, releaseDate, tagType, blogTitle, creater} = this.props
+    const {blogImgUrl, releaseDate, tagType, blogTitle, creater, createrAvater} = this.props
     return (
       <div className="blogItem">
-        <img src={blogImgUrl} className={'blogItem__img'}/>
-        <div className={'blogItem__release'}>
-          {creater}
-          {releaseDate}
+        <div className="blogItem__img__con">
+          <img src={blogImgUrl} className={'blogItem__img'}/>
+          <div className={'blogItem__release'}>
+            <div>
+              <Avatar src={createrAvater}/>
+              <span>{creater}</span>
+            </div>
+            <span>{releaseDate}</span>
+          </div>
         </div>
         <div className={'blogItem__content'}>
           <p>{blogTitle}</p>
         </div>
-
       </div>
     )
   }

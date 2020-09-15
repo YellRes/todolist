@@ -7,9 +7,17 @@ class HeaderComponent extends Component<any, any> {
   }
 
   render() {
-    return ({
+    return (
+      <div className={'header__container'}>
+        <div className={'header__title'}>
+          
+        </div>
 
-    })
+        <div className={'header__content'}>
+
+        </div>
+      </div>
+    )
   }
 
 }
