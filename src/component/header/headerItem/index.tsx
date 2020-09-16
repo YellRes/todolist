@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import './index.less';
 
 interface headerItemProps {
-  iconChild?: HTMLElement,
   tagName: string
 }
 
@@ -11,18 +11,18 @@ class HeaderItem extends Component<headerItemProps, any> {
   }
 
   render() {
-    const { iconChild, tagName } = this.props
+    const { children, tagName } = this.props
 
     return (
       <div className={'headerItem__container'}>
 
-        <div className={'headerItem_left'}>
-          {iconChild}
-        </div>
+        <span className={'headerItem_left'}>
+          {children}
+        </span>
 
-        <div className={'headerItem_right'}>
+        <span className={'headerItem_right'}>
           {tagName}
-        </div>
+        </span>
         
       </div>
     )
