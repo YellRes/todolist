@@ -3,6 +3,7 @@ import Login from '../component/login'
 import Home from '../pages/home'
 import Test  from '../pages/test'
 import Counter from '../pages/test/classAdd'
+import AutoScroll from '../pages/test/autoScroll'
 
 
 
@@ -33,6 +34,13 @@ const RouterConfig = [
     component: Counter,
     auth: false
   },
+  {
+    path: "/autoScroll",
+    component: AutoScroll,
+    auth: false
+  },
+
+  
   
 
 ];

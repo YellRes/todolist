@@ -3,7 +3,6 @@ import {message} from 'antd'
 
 axios.defaults.timeout = 10000
 axios.defaults.baseURL = 'http://localhost:3001'
-
 let startFlag = false
 
 // 拦截器

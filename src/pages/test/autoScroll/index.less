@@ -1,0 +1,27 @@
+.container {
+  width: 300px;
+  height: 200px;
+  border: 1px solid #ededed;
+  overflow: auto;
+}
+
+.message_item {
+  border-bottom: 1px solid #ededed;
+  height: 40px;
+}
+
+
+@keyframes rowup {
+  0% {
+    transform: translateY(0)
+  }
+
+  100% {
+    transform: translateY(-40px)
+  }
+}
+
+.scroll_up {
+  animation: 2s rowup linear infinite normal;
+  position: relative;
+}
