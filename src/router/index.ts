@@ -4,6 +4,7 @@ import Home from '../pages/home'
 import Test  from '../pages/test'
 import Counter from '../pages/test/classAdd'
 import AutoScroll from '../pages/test/autoScroll'
+import stopWatch from '../pages/test/stopWatch'
 
 
 
@@ -37,6 +38,11 @@ const RouterConfig = [
   {
     path: "/autoScroll",
     component: AutoScroll,
+    auth: false
+  },
+  {
+    path: "/stopWatch",
+    component: stopWatch,
     auth: false
   },
 

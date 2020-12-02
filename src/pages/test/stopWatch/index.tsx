@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import StopTime from '../../../component/stopTime'
 import './index.less'
 
 class StopWatch extends Component<any, any> {
@@ -8,7 +9,8 @@ class StopWatch extends Component<any, any> {
   }
   render() {
     return (
-      <div></div>
+      <StopTime/>
+
     )
   }
 }
