@@ -62,7 +62,7 @@ class StopTime extends Component<any, any> {
          
 
             <MajorClock 
-                milleisecond={this.state.currentTime.getTime()}>
+                milleisecond={this.state.currentTime - this.state.startTime}>
             </MajorClock>
 
             <ControlButton
@@ -72,6 +72,8 @@ class StopTime extends Component<any, any> {
                 onReset={this.onReset}
                 onSplit={this.onSplit}>
             </ControlButton>
+
+            {this.state.splits}
 
             <SplitTimes value={this.state.splits}> </SplitTimes>
             </>

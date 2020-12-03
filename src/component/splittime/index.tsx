@@ -5,7 +5,7 @@ const SplitTimes = (props: any) => {
     const {value = []} = props
 
     return value.map((v: any, k: any) => (
-        <> <MajorClock key={k} milliseconds={v}/> </>
+        <> <MajorClock key={k} milleisecond={v}/> </>
     ))
 }
 
